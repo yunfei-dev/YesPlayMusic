@@ -36,11 +36,9 @@
 
 如果在 Release 页面没有找到适合你的设备的安装包的话，你可以根据下面的步骤来打包自己的客户端。
 
-1. 打包 Electron 需要用到 Node.js 和 Yarn。
+1. 打包 Electron 需要用到 Node.js 和 Yarn。可前往 [Node.js 官网](https://nodejs.org/zh-cn/) 下载安装包，本项目需要使用 Node.js 16。安装 Node.js 后可在终端里执行 `npm install -g yarn` 来安装 Yarn。
 
-   可前往 [Node.js 官网](https://nodejs.org/zh-cn/) 下载安装包，本项目需要使用 Node.js 16。安装 Node.js 后可在终端里执行 `npm install -g yarn` 来安装 Yarn。
-
-2. 使用 `git clone ` 克隆本仓库到本地。
+2. 使用 `git clone` 克隆本仓库到本地。
 
 3. 进入项目目录，使用 `yarn install` 安装项目依赖。
 
