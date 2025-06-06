@@ -1,27 +1,15 @@
-<br />
+
 <p align="center">
-  <a href="https://music.qier222.com" target="blank">
+  <a>
     <img src="images/logo.png" alt="Logo" width="156" height="156">
   </a>
   <h2 align="center" style="font-weight: 600">YesPlayMusic</h2>
-
+</p>
   <p align="center">
     高颜值的第三方网易云播放器
-    <br />
-    <a href="https://music.qier222.com" target="blank"><strong>🌎 访问DEMO</strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;
-    <a href="#%EF%B8%8F-安装" target="blank"><strong>📦️ 下载安装包</strong></a>&nbsp;&nbsp;|&nbsp;&nbsp;
-    <a href="https://t.me/yesplaymusic" target="blank"><strong>💬 加入交流群</strong></a>
-    <br />
-    <br />
   </p>
-</p>
 
-[![Library][library-screenshot]](https://music.qier222.com)
-
-
-## 全新版本
-全新2.0 Alpha测试版已发布，欢迎前往 [Releases](https://github.com/qier222/YesPlayMusic/releases) 页面下载。
-当前版本将会进入维护模式，除重大bug修复外，不会再更新新功能。
+![Library][library-screenshot]
 
 ## ✨ 特性
 
@@ -35,7 +23,7 @@
 - 🔐 支持 [UnblockNeteaseMusic](https://github.com/UnblockNeteaseMusic/server#音源清单)，自动使用[各类音源](https://github.com/UnblockNeteaseMusic/server#音源清单)替换变灰歌曲链接 （网页版不支持）
   - 「各类音源」指默认启用的音源。
   - YouTube 音源需自行安装 `yt-dlp`。
-- ✔️ 每日自动签到（手机端和电脑端同时签到）
+- ✔️ ~~每日自动签到（手机端和电脑端同时签到）~~ 停用（可能导致账号问题）
 - 🌚 Light/Dark Mode 自动切换
 - 👆 支持 Touch Bar
 - 🖥️ 支持 PWA，可在 Chrome/Edge 里点击地址栏右边的 ➕ 安装到电脑
@@ -43,30 +31,63 @@
 - ☁️ 支持音乐云盘
 - ⌨️ 自定义快捷键和全局快捷键
 - 🎧 支持 Mpris
-- 🛠 更多特性开发中
 
-## 📦️ 安装
+## 👷‍♂️ 打包客户端
 
-Electron 版本由 [@hawtim](https://github.com/hawtim) 和 [@qier222](https://github.com/qier222) 适配并维护，支持 macOS、Windows、Linux。
+如果在 Release 页面没有找到适合你的设备的安装包的话，你可以根据下面的步骤来打包自己的客户端。
 
-访问本项目的 [Releases](https://github.com/qier222/YesPlayMusic/releases)
-页面下载安装包。
+1. 打包 Electron 需要用到 Node.js 和 Yarn。
 
-- macOS 用户可以通过 Homebrew 来安装：`brew install --cask yesplaymusic`
+   可前往 [Node.js 官网](https://nodejs.org/zh-cn/) 下载安装包，本项目需要使用 Node.js 16。安装 Node.js 后可在终端里执行 `npm install -g yarn` 来安装 Yarn。
 
-- Windows 用户可以通过 Scoop 来安装：`scoop install extras/yesplaymusic`
+2. 使用 `git clone ` 克隆本仓库到本地。
+
+3. 进入项目目录，使用 `yarn install` 安装项目依赖。
+
+4. 复制 `/.env.example` 文件为 `/.env` 。
+
+5. 选择下列表格的命令来打包适合的你的安装包，打包出来的文件在 `/dist_electron` 目录下。
+
+   了解更多信息可访问 [electron-builder 文档](https://www.electron.build/cli) 。
+
+| 命令                                         | 说明                      |
+| -------------------------------------------- | ------------------------- |
+| `yarn electron:build --windows nsis:x64`     | Windows 64 位             |
+| `yarn electron:build --windows portable:x64` | Windows 64 位便携版       |
+| `yarn electron:build --linux deb:x64`        | Debian 64 位              |
+| `yarn electron:build --macos dir:arm64`      | macOS ARM                 |
+| `yarn electron:build --windows nsis:ia32`    | Windows 32 位             |
+| `yarn electron:build --windows nsis:arm64`   | Windows ARM               |
+| `yarn electron:build --linux deb:armv7l`     | Debian armv7l（树莓派等） |
+
+## ⚙️ Docker 部署
+
+1. 进入项目目录后，构建 Docker Image
+
+```sh
+docker build -t yesplaymusic .
+```
+
+2. 启动 Docker Container
+
+```sh
+docker run -d --name YesPlayMusic -p 80:80 yesplaymusic
+```
+
+3. Docker Compose 启动
+
+```sh
+docker-compose up -d
+```
+
+YesPlayMusic 地址为 `http://localhost`
 
 ## ⚙️ 部署至 Vercel
 
 除了下载安装包使用，你还可以将本项目部署到 Vercel 或你的服务器上。下面是部署到 Vercel 的方法。
 
-本项目的 Demo (https://music.qier222.com) 就是部署在 Vercel 上的网站。
-
-[![Powered by Vercel](https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg)](https://vercel.com/?utm_source=ohmusic&utm_campaign=oss)
-
-1. 部署网易云 API，详情参见 [Binaryify/NeteaseCloudMusicApi](https://neteasecloudmusicapi.vercel.app/#/?id=%e5%ae%89%e8%a3%85)
-   。你也可以将 API 部署到 Vercel。
-
+1. 部署网易云 API，详情参见 [Binaryify/NeteaseCloudMusicApi](https://neteasecloudmusicapi.vercel.app/#/?id=%e5%ae%89%e8%a3%85) 。你也可以将 API 部署到 Vercel。
+   
 2. 点击本仓库右上角的 Fork，复制本仓库到你的 GitHub 账号。
 
 3. 点击仓库的 Add File，选择 Create new file，输入 `vercel.json`，将下面的内容复制粘贴到文件中，并将 `https://your-netease-api.example.com` 替换为你刚刚部署的网易云 API 地址：
@@ -88,8 +109,7 @@ Electron 版本由 [@hawtim](https://github.com/hawtim) 和 [@qier222](https://g
 
 6. 点击 PERSONAL ACCOUNT 旁边的 Select。
 
-7. 点击 Environment Variables，填写 Name 为 `VUE_APP_NETEASE_API_URL`，Value 为 `/api`，点击 Add。最后点击底部的 Deploy 就可以部署到
-   Vercel 了。
+7. 点击 Environment Variables，填写 Name 为 `VUE_APP_NETEASE_API_URL`，Value 为 `/api`，点击 Add。最后点击底部的 Deploy 就可以部署到 Vercel 了。
 
 ## ⚙️ 部署到自己的服务器
 
@@ -106,7 +126,6 @@ git clone --recursive https://github.com/qier222/YesPlayMusic.git
 
 ```sh
 yarn install
-
 ```
 
 4. （可选）使用 Nginx 反向代理 API，将 API 路径映射为 `/api`，如果 API 和网页不在同一个域名下的话（跨域），会有一些 bug。
@@ -125,38 +144,6 @@ yarn run build
 
 7. 将 `/dist` 目录下的文件上传到你的 Web 服务器
 
-## ⚙️ 宝塔面板 docker应用商店 部署
-
-1. 安装宝塔面板，前往[宝塔面板官网](https://www.bt.cn/new/download.html) ，选择正式版的脚本下载安装。
-
-2. 安装后登录宝塔面板，在左侧导航栏中点击 Docker，首次进入会提示安装Docker服务，点击立即安装，按提示完成安装
-
-3. 安装完成后在应用商店中找到YesPlayMusic，点击安装，配置域名、端口等基本信息即可完成安装。
-
-4. 安装后在浏览器输入上一步骤设置的域名即可访问。
-
-## ⚙️ Docker 部署
-
-1. 构建 Docker Image
-
-```sh
-docker build -t yesplaymusic .
-```
-
-2. 启动 Docker Container
-
-```sh
-docker run -d --name YesPlayMusic -p 80:80 yesplaymusic
-```
-
-3. Docker Compose 启动
-
-```sh
-docker-compose up -d
-```
-
-YesPlayMusic 地址为 `http://localhost`
-
 ## ⚙️ 部署至 Replit
 
 1. 新建 Repl，选择 Bash 模板
@@ -174,28 +161,6 @@ bash <(curl -s -L https://raw.githubusercontent.com/qier222/YesPlayMusic/main/in
 ```sh
 cd /home/runner/${REPL_SLUG}/music && yarn install && yarn run build
 ```
-
-## 👷‍♂️ 打包客户端
-
-如果在 Release 页面没有找到适合你的设备的安装包的话，你可以根据下面的步骤来打包自己的客户端。
-
-1. 打包 Electron 需要用到 Node.js 和 Yarn。可前往 [Node.js 官网](https://nodejs.org/zh-cn/) 下载安装包。安装 Node.js
-   后可在终端里执行 `npm install -g yarn` 来安装 Yarn。
-
-2. 使用 `git clone --recursive https://github.com/qier222/YesPlayMusic.git` 克隆本仓库到本地。
-
-3. 使用 `yarn install` 安装项目依赖。
-
-4. 复制 `/.env.example` 文件为 `/.env` 。
-
-5. 选择下列表格的命令来打包适合的你的安装包，打包出来的文件在 `/dist_electron` 目录下。了解更多信息可访问 [electron-builder 文档](https://www.electron.build/cli)
-
-| 命令                                       | 说明                      |
-| ------------------------------------------ | ------------------------- |
-| `yarn electron:build --windows nsis:ia32`  | Windows 32 位             |
-| `yarn electron:build --windows nsis:arm64` | Windows ARM               |
-| `yarn electron:build --linux deb:armv7l`   | Debian armv7l（树莓派等） |
-| `yarn electron:build --macos dir:arm64`    | macOS ARM                 |
 
 ## :computer: 配置开发环境
 
@@ -223,12 +188,6 @@ yarn electron:serve
 # 运行 API （默认 3000 端口）
 yarn netease_api:run
 ```
-
-## ☑️ Todo
-
-查看 Todo 请访问本项目的 [Projects](https://github.com/qier222/YesPlayMusic/projects/1)
-
-欢迎提 Issue 和 Pull request。
 
 ## 📜 开源许可
 
