@@ -3,7 +3,8 @@ import { getArtist } from '@/api/artist';
 import { trackScrobble, trackUpdateNowPlaying } from '@/api/lastfm';
 import { fmTrash, personalFM } from '@/api/others';
 import { getPlaylistDetail, intelligencePlaylist } from '@/api/playlist';
-import { getLyric, getMP3, getTrackDetail, scrobble } from '@/api/track';
+// import { getLyric, getMP3, getTrackDetail, scrobble } from '@/api/track';
+import { getLyric, getMP3, getTrackDetail } from '@/api/track'; // 移除上一行的 "scrobble"
 import store from '@/store';
 import { isAccountLoggedIn } from '@/utils/auth';
 import { cacheTrackSource, getTrackSource } from '@/utils/db';
@@ -309,11 +310,12 @@ export default class {
     );
     const trackDuration = ~~(track.dt / 1000);
     time = completed ? trackDuration : ~~time;
-    scrobble({
-      id: track.id,
-      sourceid: this.playlistSource.id,
-      time,
-    });
+    // 停用 "听歌打卡" 功能 (出处: https://github.com/qier222/YesPlayMusic/issues/2383#issuecomment-2972785681)
+    // scrobble({
+    //   id: track.id,
+    //   sourceid: this.playlistSource.id,
+    //   time,
+    // });
     if (
       store.state.lastfm.key !== undefined &&
       (time >= trackDuration / 2 || time >= 240)
