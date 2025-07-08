@@ -128,7 +128,8 @@ module.exports = {
           ],
           publisherName: 'YesPlayMusic',
           icon: 'build/icons/icon.ico',
-          publish: ['github'],
+          // 让 Windows 包也使用全局 publish 配置，而不是自动检测并写入 owner 信息
+          // publish: ['github'],
         },
         linux: {
           target: [
